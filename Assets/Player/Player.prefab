@@ -97,9 +97,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c154f68102e53458b2d73f71ff374b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ammoText: {fileID: 0}
   animator: {fileID: 613166787452131580}
   range: 50
+  reloadTime: 3
   damage: 34
+  ammo: 17
 --- !u!95 &613166787452131580
 Animator:
   serializedVersion: 4
@@ -217,6 +220,7 @@ GameObject:
   - component: {fileID: 7687778505298902462}
   - component: {fileID: 7687778505298902463}
   - component: {fileID: 7687778505298902456}
+  - component: {fileID: 3928752739531301958}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -339,6 +343,20 @@ MonoBehaviour:
   sensitivityX: 15
   sensitivityY: 0.05
   playerCamera: {fileID: 7687778506271282583}
+--- !u!114 &3928752739531301958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7687778505298902452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6282c725b2a527b42ba2eb94c4138c6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
 --- !u!1 &7687778506271282578
 GameObject:
   m_ObjectHideFlags: 0

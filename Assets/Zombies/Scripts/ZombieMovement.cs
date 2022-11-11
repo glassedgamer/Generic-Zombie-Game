@@ -9,7 +9,6 @@ public class ZombieMovement : MonoBehaviour {
     // [SerializeField] Rigidbody rb;
     public NavMeshAgent agent;
 
-    [SerializeField] float speed = 0.5f;
     [SerializeField] private int damage = 5;
 
     [SerializeField] private EnemyData data;
@@ -23,9 +22,6 @@ public class ZombieMovement : MonoBehaviour {
     }
 
     void Swarm() {
-        // Vector3 pos = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        // rb.MovePosition(pos);
-        // transform.LookAt(player.transform.position);
         agent.enabled = true;
         agent.SetDestination(player.transform.position);
     }
@@ -33,6 +29,14 @@ public class ZombieMovement : MonoBehaviour {
     void SetEnemyValues() {
         GetComponent<EnemyHealth>().SetHealth(data.hp, data.hp);
         damage = data.damage;
+    }
+
+    void OnTriggerEnter(Collider col) {
+        agent.enabled = false;
+        if(col.gameObject.name == "Player") {
+            col.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+            Destroy(this.gameObject);
+        }
     }
 
 }
