@@ -15,22 +15,37 @@ public class Gun : MonoBehaviour {
     [SerializeField] float reloadTime = 3f;
 
     [SerializeField] int damage = 34;
-    [SerializeField] int ammo = 17;
+    [SerializeField] int maxAmmo = 17;
+    [SerializeField] int currentAmmo = 17;
+
+    private bool isReloading;
 
     private void Awake() {
         cam = Camera.main.transform;
     }
 
     void Start() {
-        ammoText.text = "Ammo: " + ammo.ToString() + "/17";
+        currentAmmo = maxAmmo;
+        ammoText.text = "Ammo: " + currentAmmo.ToString() + "/" + maxAmmo;
+    }
+
+    void Update() {
+        if(isReloading)
+            return;
+        
+        if(currentAmmo <= 0) {
+            StartCoroutine(Reload());
+            return;
+        }
     }
 
     public void Shoot() {
-        if(ammo > 0) {
+        if(currentAmmo > 0) {
+            FindObjectOfType<AudioManager>().Play("Pistol Shoot");
             animator.SetTrigger("Shoot");
 
-            ammo--;
-            ammoText.text = "Ammo: " + ammo.ToString() + "/17";
+            currentAmmo--;
+            ammoText.text = "Ammo: " + currentAmmo.ToString() + "/" + maxAmmo;
 
             RaycastHit hit;
             if(Physics.Raycast(cam.position, cam.forward, out hit, range)) {
@@ -38,14 +53,19 @@ public class Gun : MonoBehaviour {
                     hit.collider.GetComponent<EnemyHealth>().TakeDamage(damage);
                 }
             }
-        } else if(ammo == 0 || ammo < 0) {
-            StartCoroutine(ReloadTime());
-        }
+        } 
     }
 
-    IEnumerator ReloadTime() {
+    IEnumerator Reload() {
+        FindObjectOfType<AudioManager>().Play("Pistol Reload");
+        animator.SetTrigger("Reload");
+        
+        isReloading = true;
+
         yield return new WaitForSeconds(reloadTime);
-        ammo = 17;
-        ammoText.text = "Ammo: " + ammo.ToString() + "/17";
+        
+        currentAmmo = maxAmmo;
+        ammoText.text = "Ammo: " + currentAmmo.ToString() + "/" + maxAmmo;
+        isReloading = false;
     }
 }

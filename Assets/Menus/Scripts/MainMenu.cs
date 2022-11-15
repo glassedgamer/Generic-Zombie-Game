@@ -7,9 +7,16 @@ public class MainMenu : MonoBehaviour {
 
     public GameObject mainMenu;
     public GameObject controls;
+    public GameObject credits;
+    GameObject levelChanger;
+
+    void Start() {
+        levelChanger = GameObject.FindWithTag("LevelChanger");
+    }
 
     public void StartGame() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        FindObjectOfType<AudioManager>().Stop("Zumbis de março");
+        levelChanger.GetComponent<LevelChanger>().LoadNextLevel();
     }
 
     public void Controls() {
@@ -17,9 +24,19 @@ public class MainMenu : MonoBehaviour {
         controls.SetActive(true);
     }
 
-    public void Back() {
+    public void Credits() {
+        mainMenu.SetActive(false);
+        credits.SetActive(true);
+    }
+
+    public void ControlsBack() {
         mainMenu.SetActive(true);
         controls.SetActive(false);
+    }
+
+    public void CreditsBack() {
+        mainMenu.SetActive(true);
+        credits.SetActive(false);
     }
 
     public void Quit() {

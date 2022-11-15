@@ -8,16 +8,21 @@ public class PlayerHealth : MonoBehaviour {
     public int maxHealth = 100;
     public int currentHealth;
 
+    GameObject levelChanger;
+
     public HealthBar healthBar;
     
     void Start() {
+        levelChanger = GameObject.FindWithTag("LevelChanger");
+        
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
     }
 
     void Update() {
         if(currentHealth <= 0) {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            FindObjectOfType<AudioManager>().Stop("GZG Division");
+            levelChanger.GetComponent<LevelChanger>().LoadNextLevel();
         }
     }
 
