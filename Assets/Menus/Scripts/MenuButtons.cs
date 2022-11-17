@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class MainMenu : MonoBehaviour {
+public class MenuButtons : MonoBehaviour {
 
     public GameObject mainMenu;
     public GameObject controls;
@@ -17,6 +17,16 @@ public class MainMenu : MonoBehaviour {
     public void StartGame() {
         FindObjectOfType<AudioManager>().Stop("Zumbis de março");
         levelChanger.GetComponent<LevelChanger>().LoadNextLevel();
+    }
+
+    public void Restart() {
+        FindObjectOfType<AudioManager>().Stop("Game Over");
+        levelChanger.GetComponent<LevelChanger>().LoadMainLevel();
+    }
+
+    public void BackToMainMenu() {
+        FindObjectOfType<AudioManager>().Stop("Game Over");
+        levelChanger.GetComponent<LevelChanger>().LoadMainMenu();
     }
 
     public void Controls() {

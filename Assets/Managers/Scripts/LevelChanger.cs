@@ -13,6 +13,14 @@ public class LevelChanger : MonoBehaviour {
         StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
     }
 
+    public void LoadMainLevel() {
+        StartCoroutine(LoadLevel(1));
+    }
+
+    public void LoadMainMenu() {
+        StartCoroutine(LoadLevel(0));
+    }
+
     public IEnumerator LoadLevel(int levelIndex) {
         anim.SetTrigger("Start");
 
