@@ -32,7 +32,15 @@ public class EnemyHealth : MonoBehaviour {
         if(health <= 0) {
             // FindObjectOfType<AudioManager>().Play("Death");
             agent.enabled = false;
-            gameManager.GetComponent<GameManager>().AddPoint();
+
+            if(this.gameObject.name == "Zombie Baby(Clone)") {
+                gameManager.GetComponent<GameManager>().AddPoint(1);
+            } else if(this.gameObject.name == "Zombie Normal(Clone)") {
+                gameManager.GetComponent<GameManager>().AddPoint(2);
+            } else if(this.gameObject.name == "Zombie Brute(Clone)") {
+                gameManager.GetComponent<GameManager>().AddPoint(3);
+            }
+
             Destroy(this.gameObject);
         }
     }

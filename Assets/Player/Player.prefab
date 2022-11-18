@@ -100,9 +100,10 @@ MonoBehaviour:
   ammoText: {fileID: 0}
   animator: {fileID: 613166787452131580}
   range: 50
-  reloadTime: 3
-  damage: 34
-  ammo: 17
+  reloadTime: 0.5
+  damage: 30
+  maxAmmo: 17
+  currentAmmo: 17
 --- !u!95 &613166787452131580
 Animator:
   serializedVersion: 4

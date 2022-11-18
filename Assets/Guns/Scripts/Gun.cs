@@ -9,6 +9,8 @@ public class Gun : MonoBehaviour {
 
     public Text ammoText;
 
+    public Canvas damageText;
+
     [SerializeField] private Animator animator;
 
     [SerializeField] float range = 50f;
@@ -50,6 +52,7 @@ public class Gun : MonoBehaviour {
             RaycastHit hit;
             if(Physics.Raycast(cam.position, cam.forward, out hit, range)) {
                 if(hit.collider.GetComponent<EnemyHealth>() != null) {
+                    Instantiate(damageText, hit.point, Quaternion.identity);
                     hit.collider.GetComponent<EnemyHealth>().TakeDamage(damage);
                 }
             }
