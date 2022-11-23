@@ -11,6 +11,8 @@ public class PlayerHealth : MonoBehaviour {
     GameObject levelChanger;
 
     public HealthBar healthBar;
+
+    public Animator damageAnim;
     
     void Start() {
         levelChanger = GameObject.FindWithTag("LevelChanger");
@@ -27,6 +29,8 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     public void TakeDamage(int damage) {
+        FindObjectOfType<AudioManager>().Play("Player Hit");
+        damageAnim.SetTrigger("Hit");
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
     }

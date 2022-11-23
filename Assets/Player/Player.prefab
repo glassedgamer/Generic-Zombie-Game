@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammoText: {fileID: 0}
+  zommbieHit: {fileID: 0}
   animator: {fileID: 613166787452131580}
   range: 50
   reloadTime: 0.5

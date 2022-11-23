@@ -58,6 +58,8 @@ public class GameManager : MonoBehaviour {
         float randomLocationX = Random.Range(-22f, 22f);
         float randomLocationZ = Random.Range(-6f, 21f);
 
+
+        FindObjectOfType<AudioManager>().Play("Zombie Spawn");
         GameObject clone = Instantiate(zombies[randomInt], new Vector3(randomLocationX, 0, randomLocationZ), Quaternion.identity);
     }
 

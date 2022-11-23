@@ -52,7 +52,7 @@ public class Gun : MonoBehaviour {
             RaycastHit hit;
             if(Physics.Raycast(cam.position, cam.forward, out hit, range)) {
                 if(hit.collider.GetComponent<EnemyHealth>() != null) {
-                    // Instantiate(zommbieHit, hit.point, Quaternion.FromToRotation(Vector3., );
+                    FindObjectOfType<AudioManager>().Play("Zombie Hit");
                     hit.collider.GetComponent<EnemyHealth>().TakeDamage(damage, hit.point, hit.normal);
                 }
             }
