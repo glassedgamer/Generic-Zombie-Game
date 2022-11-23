@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour {
 
     public Text ammoText;
 
-    public Canvas damageText;
+    public GameObject zommbieHit;
 
     [SerializeField] private Animator animator;
 
@@ -52,8 +52,8 @@ public class Gun : MonoBehaviour {
             RaycastHit hit;
             if(Physics.Raycast(cam.position, cam.forward, out hit, range)) {
                 if(hit.collider.GetComponent<EnemyHealth>() != null) {
-                    Instantiate(damageText, hit.point, Quaternion.identity);
-                    hit.collider.GetComponent<EnemyHealth>().TakeDamage(damage);
+                    // Instantiate(zommbieHit, hit.point, Quaternion.FromToRotation(Vector3., );
+                    hit.collider.GetComponent<EnemyHealth>().TakeDamage(damage, hit.point, hit.normal);
                 }
             }
         } 

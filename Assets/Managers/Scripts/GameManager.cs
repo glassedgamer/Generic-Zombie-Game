@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
+
+    public GameObject hitEffect;
     
     [Header("Score Text")]
     public Text scoreText;
@@ -40,30 +42,6 @@ public class GameManager : MonoBehaviour {
             PlayerPrefs.SetInt("highscore", points);
         }
     }
-
-    // public void BruteAddPoint() {
-    //     points += bruteValue;
-    //     scoreText.text = points.ToString() + " Points";
-    //     if(highscore < points) {
-    //         PlayerPrefs.SetInt("highscore", points);
-    //     }
-    // }
-
-    // public void NormalAddPoint() {
-    //     points += normalValue;
-    //     scoreText.text = points.ToString() + " Points";
-    //     if(highscore < points) {
-    //         PlayerPrefs.SetInt("highscore", points);
-    //     }
-    // }
-
-    // public void BabyAddPoint() {
-    //     points += babyValue;
-    //     scoreText.text = points.ToString() + " Points";
-    //     if(highscore < points) {
-    //         PlayerPrefs.SetInt("highscore", points);
-    //     }
-    // }
 
     IEnumerator spawnZombies() {
         while (true) {

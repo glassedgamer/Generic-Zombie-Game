@@ -13,6 +13,8 @@ public class EnemyHealth : MonoBehaviour {
 
     private int maxHealth = 100;
 
+    [SerializeField] GameObject hitEffect;
+
     void Start() {
         gameManager = GameObject.FindWithTag("GameManager");
     }
@@ -22,9 +24,8 @@ public class EnemyHealth : MonoBehaviour {
         this.health = health;
     }
 
-    public void TakeDamage(int damage) {
-        // GetComponent<Enemy>().Dazed();
-        // Instantiate(blood, transform.position, Quaternion.identity);
+    public void TakeDamage(int damage, Vector3 hitPos, Vector3 hitNormal) {
+        GameObject clone = Instantiate(hitEffect, hitPos, Quaternion.LookRotation(hitNormal));
 
         health -= damage;
         Debug.Log("Damage dealt!");
@@ -40,7 +41,7 @@ public class EnemyHealth : MonoBehaviour {
             } else if(this.gameObject.name == "Zombie Brute(Clone)") {
                 gameManager.GetComponent<GameManager>().AddPoint(3);
             }
-
+            
             Destroy(this.gameObject);
         }
     }

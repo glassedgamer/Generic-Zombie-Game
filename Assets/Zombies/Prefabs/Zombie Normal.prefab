@@ -267,6 +267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 5338079918307966473}
   health: 120
+  hitEffect: {fileID: 5927288569411108421, guid: 4d5f53957a4bae74588db8606a7ef831, type: 3}
 --- !u!1 &6460992312564043314
 GameObject:
   m_ObjectHideFlags: 0
