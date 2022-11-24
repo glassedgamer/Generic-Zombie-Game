@@ -7,28 +7,37 @@ public class PauseMenu : MonoBehaviour {
 
     private PlayerControls playerControls;
     private InputAction menu;
+    private InputAction enter;
+
+    GameObject levelChanger;
 
     [SerializeField] private GameObject pauseUI;
-    [SerializeField] private bool isPaused;
+    public bool isPaused;
 
     void Awake() {
         playerControls = new PlayerControls();
     }
 
     void Start() {
+        levelChanger = GameObject.FindWithTag("LevelChanger");
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     void OnEnable() {
         menu = playerControls.Menu.Pause;
+        enter = playerControls.Menu.Enter;
         menu.Enable();
+        enter.Enable();
 
         menu.performed += Pause;
+        enter.performed += MainMenu;
     }
 
     void OnDisable() {
         menu.Disable();
+        enter.Disable();
     }
 
     void Pause(InputAction.CallbackContext context) {
@@ -39,6 +48,19 @@ public class PauseMenu : MonoBehaviour {
         } else {
             DeactivateMenu();
         }
+    }
+
+    void MainMenu(InputAction.CallbackContext context) {
+        if(isPaused) {
+            DeactivateMenu();
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            FindObjectOfType<AudioManager>().Stop("GZG Division");
+            levelChanger.GetComponent<LevelChanger>().LoadMainMenu();
+        } else {
+            return;
+        }
+        
     }
 
     void ActivateMenu() {

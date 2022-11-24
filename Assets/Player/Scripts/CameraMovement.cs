@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour {
 
+    GameObject gameManager;
+
     [SerializeField] float xClamp = 85f;
     [SerializeField] float sensitivityX = 8f;
     [SerializeField] float sensitivityY = 0.5f;
@@ -11,6 +13,7 @@ public class CameraMovement : MonoBehaviour {
     [SerializeField] Transform playerCamera;
 
     void Start() {
+        gameManager = GameObject.FindWithTag("GameManager");
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -26,8 +29,13 @@ public class CameraMovement : MonoBehaviour {
     }
 
     public void ReceiveInput(Vector2 mouseInput) {
-        mouseX = mouseInput.x * sensitivityX;
-        mouseY = mouseInput.y * sensitivityY;
+        if(gameManager.GetComponent<PauseMenu>().isPaused == false) {
+            mouseX = mouseInput.x * sensitivityX;
+            mouseY = mouseInput.y * sensitivityY;
+        } else if(gameManager.GetComponent<PauseMenu>().isPaused == true) {
+            mouseX = 0f;
+            mouseY = 0f;
+        }
     }
 
 }

@@ -10,6 +10,7 @@ public class Gun : MonoBehaviour {
     public Text ammoText;
 
     public GameObject zommbieHit;
+    GameObject gameManager;
 
     [SerializeField] private Animator animator;
 
@@ -27,6 +28,7 @@ public class Gun : MonoBehaviour {
     }
 
     void Start() {
+        gameManager = GameObject.FindWithTag("GameManager");
         currentAmmo = maxAmmo;
         ammoText.text = "Ammo: " + currentAmmo.ToString() + "/" + maxAmmo;
     }
@@ -42,21 +44,25 @@ public class Gun : MonoBehaviour {
     }
 
     public void Shoot() {
-        if(currentAmmo > 0) {
-            FindObjectOfType<AudioManager>().Play("Pistol Shoot");
-            animator.SetTrigger("Shoot");
+        if(gameManager.GetComponent<PauseMenu>().isPaused == false) {
+            if(currentAmmo > 0) {
+                FindObjectOfType<AudioManager>().Play("Pistol Shoot");
+                animator.SetTrigger("Shoot");
 
-            currentAmmo--;
-            ammoText.text = "Ammo: " + currentAmmo.ToString() + "/" + maxAmmo;
+                currentAmmo--;
+                ammoText.text = "Ammo: " + currentAmmo.ToString() + "/" + maxAmmo;
 
-            RaycastHit hit;
-            if(Physics.Raycast(cam.position, cam.forward, out hit, range)) {
-                if(hit.collider.GetComponent<EnemyHealth>() != null) {
-                    FindObjectOfType<AudioManager>().Play("Zombie Hit");
-                    hit.collider.GetComponent<EnemyHealth>().TakeDamage(damage, hit.point, hit.normal);
+                RaycastHit hit;
+                if(Physics.Raycast(cam.position, cam.forward, out hit, range)) {
+                    if(hit.collider.GetComponent<EnemyHealth>() != null) {
+                        FindObjectOfType<AudioManager>().Play("Zombie Hit");
+                        hit.collider.GetComponent<EnemyHealth>().TakeDamage(damage, hit.point, hit.normal);
+                    }
                 }
             }
-        } 
+        } else {
+            return;
+        }
     }
 
     IEnumerator Reload() {
